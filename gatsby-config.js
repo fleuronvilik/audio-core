@@ -1,3 +1,5 @@
+const path = require('path')
+
 module.exports = {
   plugins: [
     {
@@ -16,7 +18,7 @@ module.exports = {
       resolve: "gatsby-source-filesystem",
       options: {
         name: "images",
-        path: `${__dirname}/src/images/`,
+        path: path.resolve(__dirname, "./src/images/"),
       },
       __key: "images",
     },
