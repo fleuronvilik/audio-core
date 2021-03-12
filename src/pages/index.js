@@ -1,29 +1,40 @@
-import * as React from "react"
-import { Link } from "gatsby"
+import React from "react"
+import { Link, graphql } from "gatsby"
 
-function Home() {
+import Layout from "../components/layout"
+
+export const query = graphql`
+  query {
+    allContentfulCity {
+      nodes {
+        id
+        name
+        location {
+          lat
+          lon
+        }
+        gatsbyPath(filePath: "/cities/{contentfulCity.name}")
+      }
+    }
+  }
+`;
+
+function Home({ data }) {
   return (
-    <main>
+    <Layout isHome>
       <title>Home</title>
-      <h1>AudioC0RE</h1>
+      <h2>Cities</h2>
       <ul>
-        <li><Link to="/about/">About</Link></li>
-        <li>
-          <Link to="/location/">Location</Link>
-          <ul>
-            <li>
-              <Link to="/location/long-beach/">Long Beach</Link>
-            </li>
-            <li>
-              <Link to="/location/sacramento/">Sacramento</Link>
-            </li>
-            <li>
-              <Link to="/location/oakland/">Oakland</Link>
-            </li>
-          </ul>
-        </li>
+        {data.allContentfulCity.nodes.map(city => (
+          <li key={city.id}>
+            <Link
+              to={city.gatsbyPath}
+              title={`lat: ${city.location.lat}, lon: ${city.location.lon}`}>{city.name}
+            </Link>
+          </li>
+        ))}  
       </ul>
-    </main>
+    </Layout>
   )
 }
 

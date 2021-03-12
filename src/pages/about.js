@@ -5,7 +5,8 @@ function About() {
   return (
     <Layout>
       <title>About</title>
-      <h1>About</h1>
+      <h2>About</h2>
+      <p>100DaysOfGatsby2021</p>
     </Layout>
   )
 }
